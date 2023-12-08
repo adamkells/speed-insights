@@ -1,0 +1,18 @@
+<!-- report_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regression Model Evaluation Report</title>
+</head>
+<body>
+    <h1>Regression Model Evaluation Report</h1>
+    
+    <h2>Metrics</h2>
+    <p>Mean Squared Error: {{ mse }}</p>
+    <p>R-squared: {{ r2 }}</p>
+    
+    <h2>Plots</h2>
+    <img src="data:image/png;base64,{{ plot_encoded }}" alt="Actual vs. Predicted Values">
+</body>
+</html>
