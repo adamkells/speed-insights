@@ -1,4 +1,4 @@
-<!-- report_template.html -->
+<!-- flexible_report_template.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +9,13 @@
     <h1>Regression Model Evaluation Report</h1>
     
     <h2>Metrics</h2>
-    <p>Mean Squared Error: {{ mse }}</p>
-    <p>R-squared: {{ r2 }}</p>
+    {% for metric_name, metric_value in metrics.items() %}
+        <p>{{ metric_name }}: {{ metric_value }}</p>
+    {% endfor %}
     
     <h2>Plots</h2>
-    <img src="data:image/png;base64,{{ plot_encoded }}" alt="Actual vs. Predicted Values">
+    {% for plot_data in plots %}
+        <img src="data:image/png;base64,{{ plot_data.encoded }}" alt="{{ plot_data.alt }}">
+    {% endfor %}
 </body>
 </html>
