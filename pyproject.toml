@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "reg-report"
+name = "speed_insights"
 version = "0.1.0"
 description = "A package to automate the comparison of regression ML models."
 authors = ["Adam Kells <adamjkells93@gmail.com>"]
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "LICENSE"
 
 [tool.poetry.dependencies]
 python = "^3.11"
