@@ -4,6 +4,7 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 from speed_insights.metrics_calculator import MAECalculator, MSECalculator, R2Calculator
@@ -15,9 +16,9 @@ class ModelComparison:
         self.models = {}
 
         self.preds = pd.DataFrame()
-        self.preds['y_true'] = data_loader.y
+        self.preds["y_true"] = data_loader.y
 
-        self.metrics = pd.DataFrame(columns=['mae', 'mse', 'r2'])
+        self.metrics = pd.DataFrame(columns=["mae", "mse", "r2"])
 
         self.investigation_rows = pd.DataFrame()
 
@@ -42,7 +43,7 @@ class ModelComparison:
                 self.preds[name] = model.predict(self.data_loader.X)
 
     def compute_agg_metrics(self):
-        columns = [x for x in self.preds.columns if x != 'y_true']
+        columns = [x for x in self.preds.columns if x != "y_true"]
         for column in columns:
             y_pred = self.preds[column]
             # Compute metrics
@@ -53,22 +54,22 @@ class ModelComparison:
 
             # Put metrics in a pandas dataframe structure
             self.metrics.loc[column] = [mae, mse, r2]
-            
 
     def compute_row_wise_metrics(self):
         pass
 
-
     def find_rows_for_investigation(self, func, func_name, percentile=0.99):
         # Apply the given function to calculate the differences
-        diff_df = self.preds.iloc[:, 2:].apply(lambda x: func(x, self.preds['y_true']), axis=1)
+        diff_df = self.preds.iloc[:, 2:].apply(
+            lambda x: func(x, self.preds["y_true"]), axis=1
+        )
 
         # Calculate the threshold for the top percentile values
         threshold = diff_df.stack().quantile(percentile)
 
         # Filter rows containing top percentile values
         filtered_df = diff_df[diff_df > threshold].dropna()
-        filtered_df['filter_reason'] = f'{func_name} variance high'
+        filtered_df["filter_reason"] = f"{func_name} variance high"
         self.investigation_rows.append(filtered_df)
 
 

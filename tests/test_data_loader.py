@@ -2,6 +2,7 @@ import unittest
 import pandas as pd
 from speed_insights.data_loader import DataLoader
 
+
 class TestDataLoader(unittest.TestCase):
     def test_data_loader(self):
         # Create test data
@@ -15,5 +16,6 @@ class TestDataLoader(unittest.TestCase):
         pd.testing.assert_frame_equal(data_loader.X, X)
         pd.testing.assert_frame_equal(data_loader.y, y)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

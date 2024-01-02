@@ -7,12 +7,12 @@
 </head>
 <body>
     <h1>Regression Model Evaluation Report</h1>
-    
+
     <h2>Metrics</h2>
     {% for metric_name, metric_value in metrics.items() %}
         <p>{{ metric_name }}: {{ metric_value }}</p>
     {% endfor %}
-    
+
     <h2>Plots</h2>
     {% for plot_data in plots %}
         <img src="data:image/png;base64,{{ plot_data.encoded }}" alt="{{ plot_data.alt }}">

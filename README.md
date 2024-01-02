@@ -41,7 +41,7 @@ To install the `speed-insights` package, you can use [Poetry](https://python-poe
 2. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/speed-insights.git
+    git clone https://github.com/adamkells/speed-insights.git
     ```
 
 3. Navigate to the project directory:
@@ -141,7 +141,3 @@ The following items are on the roadmap for Q1 2024.
 ## Contributing
 
 Contributions are more than welcome! Feel free to raise an issue if you have any suggestions for additional visualisations and metrics.
-
-
-
-

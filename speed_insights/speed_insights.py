@@ -3,7 +3,9 @@ from speed_insights.data_loader import DataLoader
 from speed_insights.visualiser import HistogramVisualiser, ScatterplotVisualiser
 
 from logging import getLogger
+
 logger = getLogger(__name__)
+
 
 class SpeedInsights:
     def __init__(self, X, y, models):
@@ -31,13 +33,10 @@ class SpeedInsights:
         self.model_comparison = model_comparison
 
         return model_comparison.metrics
-    
+
     def generate_visualisations(self, output_folder):
         logger.info(f"Generating visualisations in {output_folder}")
         HistogramVisualiser(self.model_comparison.preds, output_folder).create_figures()
-        ScatterplotVisualiser(self.model_comparison.preds, output_folder).create_figures()
-
-
-    
-        
-
+        ScatterplotVisualiser(
+            self.model_comparison.preds, output_folder
+        ).create_figures()
