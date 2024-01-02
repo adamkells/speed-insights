@@ -16,7 +16,7 @@ class TestSpeedInsights(unittest.TestCase):
         self.speed_insights = SpeedInsights(X, y, models)
 
     def test_generate_insights(self):
-        insights = self.speed_insights.generate_insights()
+        insights = self.speed_insights.generate_metrics()
 
         # Assert that insights are generated correctly
         self.assertIsNotNone(insights)
@@ -24,7 +24,7 @@ class TestSpeedInsights(unittest.TestCase):
 
     def test_generate_visualisations(self):
         output_folder = '/path/to/output/folder'
-        self.speed_insights.generate_insights()
+        self.speed_insights.generate_metrics()
         self.speed_insights.generate_visualisations(output_folder)
 
 

@@ -7,6 +7,7 @@ logger = getLogger(__name__)
 
 class SpeedInsights:
     def __init__(self, X, y, models):
+        # TODO: Add docstrings and type hints
         self.X = X
         self.y = y
         self.models = models

@@ -1,6 +1,5 @@
 import unittest
 import pandas as pd
-import numpy as np
 from speed_insights.model_comparison import ModelComparison
 
 class TestModelComparison(unittest.TestCase):
