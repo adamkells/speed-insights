@@ -4,12 +4,13 @@ name: Python package
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [3.11]
-
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.11"]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
