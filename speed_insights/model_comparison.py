@@ -3,11 +3,11 @@ import pandas as pd
 from typing import Optional
 from abc import ABC, abstractmethod
 
+from speed_insights.metrics_calculator import METRIC_CALCULATORS
+
 import logging
 
 logger = logging.getLogger(__name__)
-
-from speed_insights.metrics_calculator import MAECalculator, MSECalculator, R2Calculator
 
 
 class ModelComparison:
@@ -47,13 +47,14 @@ class ModelComparison:
         for column in columns:
             y_pred = self.preds[column]
             # Compute metrics
-            # TODO: Put this in a loop
-            mae = MAECalculator(self.data_loader.y, y_pred).compute_metric()
-            mse = MSECalculator(self.data_loader.y, y_pred).compute_metric()
-            r2 = R2Calculator(self.data_loader.y, y_pred).compute_metric()
+            metrics = {}
+            for metric_name, metric_calculator_class in METRIC_CALCULATORS.items():
+                metric_calculator = metric_calculator_class(self.data_loader.y, y_pred)
+                metric_value = metric_calculator.compute_metric()
+                metrics[metric_name] = metric_value
 
             # Put metrics in a pandas dataframe structure
-            self.metrics.loc[column] = [mae, mse, r2]
+            self.metrics.loc[column] = metrics.values()
 
     def compute_row_wise_metrics(self):
         pass
