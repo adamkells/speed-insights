@@ -32,8 +32,6 @@ I find people often pick a metric like RMSE at random and then go all in on opti
 
 ## Installation
 
-## Installation
-
 To install the `speed-insights` package, you can use [Poetry](https://python-poetry.org/), a dependency management tool for Python.
 
 1. Make sure you have Poetry installed. If not, you can install it by following the [official Poetry installation guide](https://python-poetry.org/docs/#installation).
@@ -84,18 +82,15 @@ With SpeedInsights, you can input your dataset, include pre-trained models, and 
 ## Example
 
 In the following example, we load a dataframe and train an sklearn fit/predict model as per the usual ML workflow. We then create a SpeedInsights object from X and y data as well as dictionary of my model.
-```python
-from speed_insights import SpeedInsights
 
-# Example usage
-```
+```python
 import pandas as pd
 
 from speed_insights import SpeedInsights
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
-# Load the Boston housing dataset
+# Load the dataset
 data = pd.read_csv('my_data.csv')
 y = data['target']
 X = data.drop('target', axis=1)
@@ -119,7 +114,7 @@ insights.generate_metrics()
 
 If we want to compare a range of models we can simply extend our dictionary:
 
-```
+```python
 model_1 = LinearRegression()
 model_2 = RandomForest()
 
