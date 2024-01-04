@@ -26,7 +26,8 @@ class TestSpeedInsights(unittest.TestCase):
     def test_generate_visualisations(self):
         output_folder = "/path/to/output/folder"
         self.speed_insights.generate_metrics()
-        self.speed_insights.generate_visualisations(output_folder)
+        self.speed_insights.generate_prediction_visualisations(output_folder)
+        self.speed_insights.generate_feature_visualisations(output_folder)
 
 
 if __name__ == "__main__":

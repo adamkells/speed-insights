@@ -1,6 +1,10 @@
 from speed_insights.model_comparison import ModelComparison
 from speed_insights.data_loader import DataLoader
-from speed_insights.visualiser import HistogramVisualiser, ScatterplotVisualiser
+from speed_insights.visualiser import (
+    HistogramVisualiser,
+    ScatterplotVisualiser,
+    BoxplotVisualiser,
+)
 
 from logging import getLogger
 
@@ -34,9 +38,21 @@ class SpeedInsights:
 
         return model_comparison.metrics
 
-    def generate_visualisations(self, output_folder):
-        logger.info(f"Generating visualisations in {output_folder}")
+    def generate_prediction_visualisations(self, output_folder):
+        logger.info(
+            f"Generating visualisations of predictions vs truth in {output_folder}"
+        )
         HistogramVisualiser(self.model_comparison.preds, output_folder).create_figures()
         ScatterplotVisualiser(
-            self.model_comparison.preds, output_folder
+            self.model_comparison.preds, output_folder, x="y_true"
         ).create_figures()
+        BoxplotVisualiser(
+            self.model_comparison.preds, output_folder, x="y_true"
+        ).create_figures()
+
+    def generate_feature_visualisations(self, output_folder):
+        logger.info(f"Generating visualisations of features in {output_folder}")
+        HistogramVisualiser(self.X, output_folder).create_figures()
+        for x in self.X.columns:
+            ScatterplotVisualiser(self.X, output_folder, x).create_figures()
+            BoxplotVisualiser(self.X, output_folder, x).create_figures()
