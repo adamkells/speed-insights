@@ -18,4 +18,3 @@ class RowSelecter:
                 above_zero_columns.append(row.index[row > z_threshold].tolist())
 
         return row_indices_list, above_zero_columns
-
