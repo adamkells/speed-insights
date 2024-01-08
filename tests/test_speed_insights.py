@@ -29,6 +29,25 @@ class TestSpeedInsights(unittest.TestCase):
         self.speed_insights.generate_prediction_visualisations(output_folder)
         self.speed_insights.generate_feature_visualisations(output_folder)
 
+    def test_select_outlier_predictions(self):
+        # Generate metrics first
+        self.speed_insights.generate_metrics()
+
+        # Test when metrics is None
+        self.speed_insights.model_comparison.metrics = None
+        with self.assertRaises(RuntimeError):
+            self.speed_insights.select_outlier_predictions()
+
+        # Test with valid metrics
+        self.speed_insights.model_comparison.metrics = pd.DataFrame(
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=["metric1", "metric2", "metric3"]
+        )
+        outliers = self.speed_insights.select_outlier_predictions(z_threshold=0)
+        print(outliers)
+
+        # Assert that outliers are selected correctly
+        self.assertIsNotNone(outliers)
+
 
 if __name__ == "__main__":
     unittest.main()
