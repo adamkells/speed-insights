@@ -53,7 +53,6 @@ class ModelComparison:
                 metric_value = metric_calculator.compute_metric()
                 metrics[metric_name] = metric_value
 
-            print(metrics)
             # Put metrics in a pandas dataframe structure
             self.metrics.loc[column] = metrics.values()
 
