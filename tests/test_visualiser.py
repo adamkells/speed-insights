@@ -32,7 +32,7 @@ class TestScatterplotVisualiser(unittest.TestCase):
         self.visualiser.create_figures()
         # Add assertions to check if the figures are saved correctly
         assert os.path.exists(
-            os.path.join(self.folder_name, f"scatterplot_A_y_true.png")
+            os.path.join(self.folder_name, f"scatterplot_y_true_A.png")
         )
 
 
