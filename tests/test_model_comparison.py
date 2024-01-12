@@ -2,7 +2,6 @@ import unittest
 import pandas as pd
 from speed_insights.model_comparison import ModelComparison
 from sklearn.linear_model import LinearRegression
-from speed_insights.data_loader import DataLoader
 
 
 class TestModelComparison(unittest.TestCase):
@@ -11,8 +10,7 @@ class TestModelComparison(unittest.TestCase):
         y = pd.DataFrame([4, 5, 6])
         Model1 = LinearRegression().fit(X, y)
         self.models = {"model1": Model1}
-        data_loader = DataLoader(X, y)
-        self.model_comparison = ModelComparison(data_loader)
+        self.model_comparison = ModelComparison(X, y)
 
     def test_add_model(self):
         # Call the method

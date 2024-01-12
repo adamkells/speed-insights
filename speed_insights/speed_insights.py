@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 
 from speed_insights.model_comparison import ModelComparison
-from speed_insights.data_loader import DataLoader
 from speed_insights.visualiser import (
     HistogramVisualiser,
     ScatterplotVisualiser,
@@ -24,8 +23,7 @@ class SpeedInsights:
         self.y = self._check_data(y)
         self.models = models
 
-        data_loader = DataLoader(self.X, self.y)
-        self.model_comparison = ModelComparison(data_loader)
+        self.model_comparison = ModelComparison(self.X, self.y)
         for name, model in self.models.items():
             logger.info(f"Adding model {name}")
             self.model_comparison.add_model(model, name)
@@ -49,8 +47,8 @@ class SpeedInsights:
     def generate_feature_visualisations(self, output_folder):
         logger.info(f"Generating visualisations of features in {output_folder}")
         HistogramVisualiser(self.X, output_folder).create_figures()
+        ScatterplotVisualiser(self.X, output_folder).create_figures()
         for x in self.X.columns:
-            ScatterplotVisualiser(self.X, output_folder, x).create_figures()
             BoxplotVisualiser(self.X, output_folder, x).create_figures()
 
     def generate_prediction_visualisations(self, output_folder):
@@ -59,7 +57,7 @@ class SpeedInsights:
         )
         HistogramVisualiser(self.model_comparison.preds, output_folder).create_figures()
         ScatterplotVisualiser(
-            self.model_comparison.preds, output_folder, x="y_true"
+            self.model_comparison.preds, output_folder
         ).create_figures()
         BoxplotVisualiser(
             self.model_comparison.preds, output_folder, x="y_true"
@@ -67,13 +65,12 @@ class SpeedInsights:
         # Add Q-Q plot
 
     def select_outlier_predictions(self, z_threshold=2):
-        if self.model_comparison.metrics is None:
-            raise RuntimeError(
-                "Please run generate_metrics before calling select_outlier_predictions"
-            )
-        row_selecter = RowSelecter(self.model_comparison.metrics)
+        row_selecter = RowSelecter(self.model_comparison.preds)
         outliers_rows, outliers_columns = row_selecter.find_outlier_rows(z_threshold)
-        data = self.X.iloc[outliers_rows, :]
-        data["reason"] = outliers_columns
+        data = pd.concat(
+            [self.X.loc[outliers_rows], self.model_comparison.preds.loc[outliers_rows]],
+            axis=1,
+        )
+        data["reasons"] = outliers_columns
 
         return data

@@ -24,26 +24,23 @@ class TestSpeedInsights(unittest.TestCase):
         self.assertIsInstance(insights, pd.DataFrame)
 
     def test_generate_visualisations(self):
-        output_folder = "/path/to/output/folder"
+        output_folder = "test_folder/"
         self.speed_insights.generate_metrics()
         self.speed_insights.generate_prediction_visualisations(output_folder)
         self.speed_insights.generate_feature_visualisations(output_folder)
 
     def test_select_outlier_predictions(self):
-        # Generate metrics first
-        self.speed_insights.generate_metrics()
-
         # Test when metrics is None
-        self.speed_insights.model_comparison.metrics = None
-        with self.assertRaises(RuntimeError):
+        self.speed_insights.model_comparison.preds = None
+        with self.assertRaises(AttributeError):
             self.speed_insights.select_outlier_predictions()
 
         # Test with valid metrics
-        self.speed_insights.model_comparison.metrics = pd.DataFrame(
-            [[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=["metric1", "metric2", "metric3"]
+        self.speed_insights.model_comparison.preds = pd.DataFrame(
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=["preds1", "preds2", "preds3"]
         )
+
         outliers = self.speed_insights.select_outlier_predictions(z_threshold=0)
-        print(outliers)
 
         # Assert that outliers are selected correctly
         self.assertIsNotNone(outliers)

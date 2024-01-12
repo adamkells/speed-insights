@@ -16,11 +16,6 @@ class TestHistogramVisualiser(unittest.TestCase):
 
     def test_create_figures(self):
         self.visualiser.create_figures()
-        self.assertEqual(len(self.visualiser.figures), 2)
-
-    def test_save_figures(self):
-        self.visualiser.create_figures()
-        self.visualiser.save_figures()
         # Add assertions to check if the figures are saved correctly
         assert os.path.exists(os.path.join(self.folder_name, f"histogram_A.png"))
 
@@ -35,11 +30,6 @@ class TestScatterplotVisualiser(unittest.TestCase):
 
     def test_create_figures(self):
         self.visualiser.create_figures()
-        self.assertEqual(len(self.visualiser.figures), 2)
-
-    def test_save_figures(self):
-        self.visualiser.create_figures()
-        self.visualiser.save_figures()
         # Add assertions to check if the figures are saved correctly
         assert os.path.exists(
             os.path.join(self.folder_name, f"scatterplot_A_y_true.png")
@@ -56,11 +46,6 @@ class TestBoxplotVisualiser(unittest.TestCase):
 
     def test_create_figures(self):
         self.visualiser.create_figures()
-        self.assertEqual(len(self.visualiser.figures), 1)
-
-    def test_save_figures(self):
-        self.visualiser.create_figures()
-        self.visualiser.save_figures()
         # Add assertions to check if the figures are saved correctly
         assert os.path.exists(os.path.join(self.folder_name, f"boxplot_B_y_true.png"))
 
