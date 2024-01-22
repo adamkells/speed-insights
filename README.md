@@ -125,6 +125,13 @@ insights = SpeedInsights(X_test, y_test, {'linear-model': model_1, 'rf-model': m
 insights.generate_metrics()
 ```
 
+We can also generate visualisations of our predictions vs our ground truth with the generate_prediction_visualisations method.
+
+```python
+insights = SpeedInsights(X_test, y_test, {'linear-model': model_1, 'rf-model': model_2})
+insights.generate_prediction_visualisations('output_folder')
+```
+
 ## Roadmap
 The following items are on the roadmap for Q1 2024.
 - Expanding the list of metrics (SMAPE) as well as some pragmatic types of errors (largest error, std of error distribution).
